@@ -1,2 +1,3 @@
-# pandoc-data
-Highly-opinionated templates for generating .docx short story and novel manuscripts in using pandoc.
+# Pandoc Data
+
+A set of templates for generating .docx manuscripts that adhere to [William Shunn's Proper Manuscript Format](https://www.shunn.net/format/) guidelines using [pandoc](https://www.shunn.net/format/).
