@@ -1,14 +1,13 @@
 ---
 title: "Proper Manuscript Format"
-subtitle:
+# subtitle:
 author: "by William Shunn"
-header: "Shunn / Format / $page$"
-date:
-abstract:
-toc: false
-toc-title:
-include-before:
-include-after:
+# date:
+# abstract:
+# toc: false
+# toc-title:
+# include-before:
+# include-after:
 ---
 No one knows for certain how many good short stories are passed over because the manuscripts containing them are formatted poorly, but it is certain that a properly formatted manuscript will be more eagerly read by an editor than a poorly formatted one. Here are a few suggestions.
 
