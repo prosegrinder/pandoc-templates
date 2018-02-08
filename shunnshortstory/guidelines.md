@@ -1,7 +1,10 @@
 ---
 title: "Proper Manuscript Format"
+short_title: "Format"
 # subtitle:
 author: "by William Shunn"
+author_name: "William Shunn"
+author_lastname: "Shunn"
 # date:
 # abstract:
 # toc: false
