@@ -11,27 +11,48 @@ local hashrule = [[<w:p>
 </w:r>
 </w:p>]]
 
+local vars = {}
+
+function Meta(meta)
+  for k, v in pairs(meta) do
+    if v.t == "MetaInlines" then
+      vars["#" .. k .. "#"] = pandoc.utils.stringify(v)
+    end
+  end
+  print("Unzipping")
+  os.execute('./unziptemplate.sh')
+
+  print("Processing")
+  processHeaderFile('header2')
+  processHeaderFile('header3')
+
+  print("Zipping")
+  os.execute ('./zipref.sh')
+end
+
 function HorizontalRule(el)
     return pandoc.RawBlock('openxml', hashrule)
 end
 
-function copyTemplateFile(templateFilename)
-  -- h1file = io.open('./template/word/header2.xml','r')
-  local tFilename = './template/word/' .. templateFilename .. '.xml'
-  print(tFilename)
-  local h1file = io.open(tFilename,'r')
-  local h1content = h1file:read("*a")
-  h1file:close()
-  local h1docx = io.open('./docx/word/' .. templateFilename,'w')
-  content = string.gsub(h1content, '#last_name#', 'Day')
-  content = string.gsub(content, ' #short_title#', 'Success')
-  h1docx:write(content)
-  h1docx:close()
+function processHeaderFile(headerFilename)
+
+  local tFilename = './template/word/' .. headerFilename .. '.xml'
+  local templateFile = io.open(tFilename,'r')
+  local content = templateFile:read("*a")
+  templateFile:close()
+
+  for k, v in pairs(vars) do
+    if vars[k] == nil then
+      content = string.gsub(content, k, '')
+    else
+      content = string.gsub(content, k, vars[k])
+    end
+  end
+
+  local dFilename = './docx/word/' .. headerFilename .. '.xml'
+  local docxFile = io.open(dFilename,'w')
+  docxFile:write(content)
+  docxFile:close()
 end
 
-os.execute('./unziptemplate.sh')
 
-copyTemplateFile('header2')
-copyTemplateFile('header3')
-
-os.execute ('./zipref.sh')
