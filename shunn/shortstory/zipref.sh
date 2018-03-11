@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-cd template
-zip -r ../scripted.docx *
+cd docx && zip -r ../reference.docx *
