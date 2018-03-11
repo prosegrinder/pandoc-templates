@@ -4,7 +4,7 @@
 SCRIPT=$(realpath $0)
 SCRIPT_PATH=$(dirname $SCRIPT)
 PANDOC_TEMPLATES=$(dirname $SCRIPT_PATH)
-SHUNN_SHORT_STORY_DIR="$PANDOC_TEMPLATES/shunn/shortstory"
+SHUNN_SHORT_STORY_DIR="$PANDOC_TEMPLATES/shunn/short"
 
 # Create a temporary data directory
 export PANDOC_DATA_DIR=$(mktemp -d)
@@ -12,7 +12,12 @@ export PANDOC_DATA_DIR=$(mktemp -d)
 cp $SHUNN_SHORT_STORY_DIR/template.docx $PANDOC_DATA_DIR/template.docx
 
 # Run pandoc
-pandoc $1 --from markdown --to docx --lua-filter $SHUNN_SHORT_STORY_DIR/shortstory.lua --data-dir $PANDOC_DATA_DIR --output $2
+pandoc $1 \
+  --from markdown \
+  --to docx \
+  --lua-filter $SHUNN_SHORT_STORY_DIR/shunnshort.lua \
+  --data-dir $PANDOC_DATA_DIR \
+  --output $2
 
 # Clean up the temporary directory
 rm -rf $PANDOC_DATA_DIR
