@@ -1,0 +1,3 @@
+# Ignore uznipped template and docx directories
+**/template/*
+**/docx/**
