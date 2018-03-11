@@ -1,0 +1,9 @@
+# Ignore uznipped template and docx directories
+**/template/*
+**/reference/*
+
+# Ignore all docx files
+*.docx
+
+# Shunn Short Story
+!shunn/shortstory/template.docx
