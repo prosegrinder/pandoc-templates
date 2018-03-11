@@ -20,14 +20,15 @@ function Meta(meta)
     end
   end
   print("Unzipping")
-  os.execute('./unziptemplate.sh')
+  os.execute('unzip -afo template.docx -d template')
+  os.execute('unzip -afo template.docx -d docx')
 
   print("Processing")
   processHeaderFile('header2')
   processHeaderFile('header3')
 
   print("Zipping")
-  os.execute ('./zipref.sh')
+  os.execute ('cd docx && zip -r ../reference.docx *')
 end
 
 function HorizontalRule(el)
