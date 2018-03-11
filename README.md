@@ -55,7 +55,7 @@ contact_email: "format@shunn.net"
 The script takes two arguments, the name of input markdown file, and the name of the resulting DOCX file.
 
 ```bash
-$PANDOC_TEMPLATES_HOME/bin/shunshort.sh /some/cool/story.md /some/cool/story.docx
+$PANDOC_TEMPLATES_HOME/bin/shunnshort.sh /some/cool/story.md /some/cool/story.docx
 ```
 
  That's it!
