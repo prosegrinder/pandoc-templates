@@ -32,9 +32,7 @@ If you're not familiar with ```git```, no big deal. Just download the [latest re
 
 ## Usage
 
-Once you have the files locally,
-
-[Shunn's Short Story Format](https://www.shunn.net/format/story.html) is a generally acceptable format for submitting short stories to markets.
+Once you have the templates installed locally, you'll need to make sure your source Markdown document has the proper frontmatter.
 
 ### Frontmatter
 
