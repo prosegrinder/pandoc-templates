@@ -12,6 +12,9 @@ local hashrule = [[<w:p>
 </w:p>]]
 
 local vars = {}
+local word_count = 0
+local osEnv = {}
+
 
 function Meta(meta)
   for k, v in pairs(meta) do
@@ -19,16 +22,6 @@ function Meta(meta)
       vars["#" .. k .. "#"] = pandoc.utils.stringify(v)
     end
   end
-  print("Unzipping")
-  os.execute('unzip -afo template.docx -d template')
-  os.execute('unzip -afo template.docx -d docx')
-
-  print("Processing")
-  processHeaderFile('header2')
-  processHeaderFile('header3')
-
-  print("Zipping")
-  os.execute ('cd docx && zip -r ../reference.docx *')
 end
 
 function HorizontalRule(el)
@@ -50,10 +43,54 @@ function processHeaderFile(headerFilename)
     end
   end
 
-  local dFilename = './docx/word/' .. headerFilename .. '.xml'
-  local docxFile = io.open(dFilename,'w')
-  docxFile:write(content)
-  docxFile:close()
+  local rFilename = './reference/word/' .. headerFilename .. '.xml'
+  local referenceFile = io.open(rFilename,'w')
+  referenceFile:write(content)
+  referenceFile:close()
 end
 
+function round(num, numDecimalPlaces)
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+wordcount = {
+  Str = function(el)
+    -- we don't count a word if it's entirely punctuation:
+    if el.text:match("%P") then
+      word_count = word_count + 1
+    end
+  end,
+
+  Code = function(el)
+    _,n = el.text:gsub("%S+","")
+    word_count = word_count + n
+  end,
+
+  CodeBlock = function(el)
+    _,n = el.text:gsub("%S+","")
+    word_count = word_count + n
+  end
+}
+
+function Pandoc(doc, meta)
+
+  pandoc.walk_block(pandoc.Div(doc.blocks), wordcount)
+
+  vars["#word_count#"] = string.format("%i", round(word_count, -2))
+
+  -- Prepare template and reference directories
+  os.execute('unzip -ao template.docx -d template > /dev/null')
+  os.execute('unzip -ao template.docx -d reference > /dev/null')
+
+  -- Process header XML files
+  processHeaderFile('header2')
+  processHeaderFile('header3')
+
+  -- Generate reference.reference file
+  os.execute ('cd reference && zip -r ../reference.docx * > /dev/null')
+  -- Cleanup template and reference directories
+  os.execute ('rm -rf ./reference')
+  os.execute ('rm -rf ./template')
+end
 
