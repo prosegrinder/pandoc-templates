@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-unzip template.docx -d template
-unzip template.docx -d docx
+unzip -afo template.docx -d template
+unzip -afo template.docx -d docx
