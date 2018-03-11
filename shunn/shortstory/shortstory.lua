@@ -13,8 +13,6 @@ local hashrule = [[<w:p>
 
 local vars = {}
 local word_count = 0
-local osEnv = {}
-
 
 function Meta(meta)
   for k, v in pairs(meta) do
