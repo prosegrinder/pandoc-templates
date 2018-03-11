@@ -87,8 +87,5 @@ function Pandoc(doc, meta)
 
   -- Generate reference.reference file
   os.execute ('cd $PANDOC_DATA_DIR/reference && zip -r ../reference.docx * > /dev/null')
-  -- Cleanup template and reference directories
-  -- os.execute ('rm -rf ./reference')
-  -- os.execute ('rm -rf ./template')
 end
 
