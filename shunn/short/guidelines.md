@@ -1,20 +1,13 @@
 ---
 title: "Proper Manuscript Format"
 short_title: "Format"
-# subtitle:
 author: "by William Shunn"
 author_lastname: "Shunn"
 contact_name: "William Shunn"
-contact_address: 12 Courier Lane
-contact_city_state_zip: Pica's Font, NY 10010
-contact_phone: (212) 555-1212
-contact_email: format@shunn.net
-# date:
-# abstract:
-# toc: false
-# toc-title:
-# include-before:
-# include-after:
+contact_address: "12 Courier Lane"
+contact_city_state_zip: "Pica's Font, NY 10010"
+contact_phone: "(212) 555-1212"
+contact_email: "format@shunn.net"
 ---
 No one knows for certain how many good short stories are passed over because the manuscripts containing them are formatted poorly, but it is certain that a properly formatted manuscript will be more eagerly read by an editor than a poorly formatted one. Here are a few suggestions.
 
