@@ -29,8 +29,8 @@ function HorizontalRule(el)
 end
 
 function processHeaderFile(headerFilename)
-
-  local tFilename = './template/word/' .. headerFilename .. '.xml'
+  local data_dir = os.getenv('PANDOC_DATA_DIR')
+  local tFilename = data_dir .. '/template/word/' .. headerFilename .. '.xml'
   local templateFile = io.open(tFilename,'r')
   local content = templateFile:read("*a")
   templateFile:close()
@@ -43,7 +43,7 @@ function processHeaderFile(headerFilename)
     end
   end
 
-  local rFilename = './reference/word/' .. headerFilename .. '.xml'
+  local rFilename = data_dir .. '/reference/word/' .. headerFilename .. '.xml'
   local referenceFile = io.open(rFilename,'w')
   referenceFile:write(content)
   referenceFile:close()
@@ -80,17 +80,17 @@ function Pandoc(doc, meta)
   vars["#word_count#"] = string.format("%i", round(word_count, -2))
 
   -- Prepare template and reference directories
-  os.execute('unzip -ao template.docx -d template > /dev/null')
-  os.execute('unzip -ao template.docx -d reference > /dev/null')
+  os.execute('unzip -ao $PANDOC_DATA_DIR/template.docx -d $PANDOC_DATA_DIR/template > /dev/null')
+  os.execute('unzip -ao $PANDOC_DATA_DIR/template.docx -d $PANDOC_DATA_DIR/reference > /dev/null')
 
   -- Process header XML files
   processHeaderFile('header2')
   processHeaderFile('header3')
 
   -- Generate reference.reference file
-  os.execute ('cd reference && zip -r ../reference.docx * > /dev/null')
+  os.execute ('cd $PANDOC_DATA_DIR/reference && zip -r ../reference.docx * > /dev/null')
   -- Cleanup template and reference directories
-  os.execute ('rm -rf ./reference')
-  os.execute ('rm -rf ./template')
+  -- os.execute ('rm -rf ./reference')
+  -- os.execute ('rm -rf ./template')
 end
 
