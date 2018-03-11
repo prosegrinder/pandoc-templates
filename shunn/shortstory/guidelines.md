@@ -3,8 +3,12 @@ title: "Proper Manuscript Format"
 short_title: "Format"
 # subtitle:
 author: "by William Shunn"
-author_name: "William Shunn"
 author_lastname: "Shunn"
+contact_name: "William Shunn"
+contact_address: 12 Courier Lane
+contact_city_state_zip: Pica's Font, NY 10010
+contact_phone: (212) 555-1212
+contact_email: format@shunn.net
 # date:
 # abstract:
 # toc: false
