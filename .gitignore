@@ -6,4 +6,4 @@
 *.docx
 
 # Shunn Short Story
-!shunn/shortstory/template.docx
+!shunn/**/template.docx
