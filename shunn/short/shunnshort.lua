@@ -77,10 +77,6 @@ function Pandoc(doc, meta)
 
   vars["#word_count#"] = string.format("%i", round(word_count, -2))
 
-  -- Prepare template and reference directories
-  os.execute('unzip -ao $PANDOC_DATA_DIR/template.docx -d $PANDOC_DATA_DIR/template > /dev/null')
-  os.execute('unzip -ao $PANDOC_DATA_DIR/template.docx -d $PANDOC_DATA_DIR/reference > /dev/null')
-
   -- Process header XML files
   processHeaderFile('header2')
   processHeaderFile('header3')
