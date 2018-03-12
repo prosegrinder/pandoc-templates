@@ -31,12 +31,17 @@ $ShunnShortStoryDir=Join-Path $PSScriptRoot "..\shunn\short"
 Get-ChildItem $ShunnShortStoryDir
 
 # Create a temporary data directory
-$PANDOC_DATA_DIR=New-TemporaryDirectory
+$env:PANDOC_DATA_DIR=New-TemporaryDirectory
 
-# Copy the template.docx file to the temporary directory
-Copy-Item $ShunnShortStoryDir\template.docx $PANDOC_DATA_DIR\template.docx
+# Prep the template and reference directories
+Copy-Item -Path $ShunnShortStoryDir\template.docx -Destination $env:PANDOC_DATA_DIR\template.zip
+Expand-Archive -Path $env:PANDOC_DATA_DIR\template.zip -DestinationPath $env:PANDOC_DATA_DIR\template\
+Expand-Archive -Path $env:PANDOC_DATA_DIR\template.zip -DestinationPath $env:PANDOC_DATA_DIR\reference\
 
-Get-ChildItem $PANDOC_DATA_DIR
+# Run pandoc
+Write-Output "Running Pandoc."
+pandoc $infile --from markdown --to docx --lua-filter $ShunnShortStoryDir/shunnshort.lua --data-dir $env:PANDOC_DATA_DIR --output $outfile
+Write-Output "Pandoc completed successfully."
 
 # Clean up the temporary directory
-Remove-Item $PANDOC_DATA_DIR
+Remove-Item $env:PANDOC_DATA_DIR
