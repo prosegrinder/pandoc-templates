@@ -72,6 +72,8 @@ wordcount = {
 }
 
 function Pandoc(doc, meta)
+  local shell = os.getenv('SHELL')
+  print("SHELL = " .. shell)
 
   pandoc.walk_block(pandoc.Div(doc.blocks), wordcount)
 
@@ -81,7 +83,11 @@ function Pandoc(doc, meta)
   processHeaderFile('header2')
   processHeaderFile('header3')
 
-  -- Generate reference.reference file
-  os.execute ('cd $PANDOC_DATA_DIR/reference && zip -r ../reference.docx * > /dev/null')
+  -- Generate reference.docx file
+  if shell == '/bin/bash' then
+    os.execute ('cd $PANDOC_DATA_DIR/reference && zip -r ../reference.docx * > /dev/null')
+  else
+    print("Unknown shell: " .. shell)
+  end
 end
 
