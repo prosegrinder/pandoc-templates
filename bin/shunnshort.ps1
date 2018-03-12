@@ -1,3 +1,5 @@
+param([string]$infile, [string]$outfile)
+
 # Perhaps: https://www.powershellgallery.com/packages/Pscx/3.3.2
 
 # https://stackoverflow.com/questions/34559553/create-a-temporary-directory-in-powershell
@@ -23,3 +25,18 @@ function ZipFiles( $zipfilename, $sourcedir )
    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourcedir,
         $zipfilename, $compressionLevel, $false)
 }
+
+# Figure out where everything is
+$ShunnShortStoryDir=Join-Path $PSScriptRoot "..\shunn\short"
+Get-ChildItem $ShunnShortStoryDir
+
+# Create a temporary data directory
+$PandocDataDir=New-TemporaryDirectory
+
+# Copy the template.docx file to the temporary directory
+Copy-Item $ShunnShortStoryDir\template.docx $PandocDataDir\template.docx
+
+Get-ChildItem $PandocDataDir
+
+# Clean up the temporary directory
+Remove-Item $PandocDataDir
