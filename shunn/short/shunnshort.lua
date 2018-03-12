@@ -72,8 +72,8 @@ wordcount = {
 }
 
 function Pandoc(doc, meta)
-  local shell = os.getenv('SHELL')
-  print("SHELL = " .. shell)
+  local ossep = package.config:sub(1,1)
+  print("OS Separator = " .. ossep)
 
   pandoc.walk_block(pandoc.Div(doc.blocks), wordcount)
 
@@ -84,10 +84,13 @@ function Pandoc(doc, meta)
   processHeaderFile('header3')
 
   -- Generate reference.docx file
-  if shell == '/bin/bash' then
+  -- What OS am I on?
+  -- https://stackoverflow.com/questions/295052/how-can-i-determine-the-os-of-the-system-from-within-a-lua-script
+  if ossep == '/' then
+    -- *nix (MacOS, Linux) should have zip available
     os.execute ('cd $PANDOC_DATA_DIR/reference && zip -r ../reference.docx * > /dev/null')
   else
-    print("Unknown shell: " .. shell)
+    print("Unknown shell: " .. ossep)
   end
 end
 
