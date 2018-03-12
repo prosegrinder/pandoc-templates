@@ -15,8 +15,8 @@ echo "Directory created: $PANDOC_DATA_DIR"
 
 # Prep the template and reference directories
 echo "Extracting $SHUNN_SHORT_STORY_DIR/template.docx to temporary directory."
-unzip -ao $SHUNN_SHORT_STORY_DIR/template.docx -d $PANDOC_DATA_DIR/template
-unzip -ao $SHUNN_SHORT_STORY_DIR/template.docx -d $PANDOC_DATA_DIR/reference
+unzip -ao $SHUNN_SHORT_STORY_DIR/template.docx -d $PANDOC_DATA_DIR/template > /dev/null
+unzip -ao $SHUNN_SHORT_STORY_DIR/template.docx -d $PANDOC_DATA_DIR/reference > /dev/null
 echo "Files extracted."
 
 # Run pandoc
