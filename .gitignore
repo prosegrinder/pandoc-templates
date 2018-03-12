@@ -1,4 +1,4 @@
-# Ignore uznipped template and docx directories
+# Ignore uznipped template and reference directories
 **/template/*
 **/reference/*
 
