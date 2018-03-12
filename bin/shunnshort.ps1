@@ -31,12 +31,12 @@ $ShunnShortStoryDir=Join-Path $PSScriptRoot "..\shunn\short"
 Get-ChildItem $ShunnShortStoryDir
 
 # Create a temporary data directory
-$PandocDataDir=New-TemporaryDirectory
+$PANDOC_DATA_DIR=New-TemporaryDirectory
 
 # Copy the template.docx file to the temporary directory
-Copy-Item $ShunnShortStoryDir\template.docx $PandocDataDir\template.docx
+Copy-Item $ShunnShortStoryDir\template.docx $PANDOC_DATA_DIR\template.docx
 
-Get-ChildItem $PandocDataDir
+Get-ChildItem $PANDOC_DATA_DIR
 
 # Clean up the temporary directory
-Remove-Item $PandocDataDir
+Remove-Item $PANDOC_DATA_DIR
