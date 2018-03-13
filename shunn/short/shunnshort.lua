@@ -13,6 +13,9 @@ local hashrule = [[<w:p>
 
 local vars = {}
 local word_count = 0
+local pandoc_data_dir = os.getenv('PANDOC_DATA_DIR')
+local ossep = package.config:sub(1,1)
+
 
 function Meta(meta)
   for k, v in pairs(meta) do
@@ -27,8 +30,7 @@ function HorizontalRule(el)
 end
 
 function processHeaderFile(headerFilename)
-  local data_dir = os.getenv('PANDOC_DATA_DIR')
-  local tFilename = data_dir .. '/template/word/' .. headerFilename .. '.xml'
+  local tFilename = pandoc_data_dir .. ossep .. 'template' .. ossep .. 'word' .. ossep .. headerFilename .. '.xml'
   local templateFile = io.open(tFilename,'r')
   local content = templateFile:read("*a")
   templateFile:close()
@@ -41,7 +43,7 @@ function processHeaderFile(headerFilename)
     end
   end
 
-  local rFilename = data_dir .. '/reference/word/' .. headerFilename .. '.xml'
+  local rFilename = pandoc_data_dir .. ossep .. 'reference' .. ossep .. 'word' .. ossep .. headerFilename .. '.xml'
   local referenceFile = io.open(rFilename,'w')
   referenceFile:write(content)
   referenceFile:close()
@@ -72,20 +74,30 @@ wordcount = {
 }
 
 function Pandoc(doc, meta)
-
   pandoc.walk_block(pandoc.Div(doc.blocks), wordcount)
 
   vars["#word_count#"] = string.format("%i", round(word_count, -2))
-
-  -- Prepare template and reference directories
-  os.execute('unzip -ao $PANDOC_DATA_DIR/template.docx -d $PANDOC_DATA_DIR/template > /dev/null')
-  os.execute('unzip -ao $PANDOC_DATA_DIR/template.docx -d $PANDOC_DATA_DIR/reference > /dev/null')
 
   -- Process header XML files
   processHeaderFile('header2')
   processHeaderFile('header3')
 
-  -- Generate reference.reference file
-  os.execute ('cd $PANDOC_DATA_DIR/reference && zip -r ../reference.docx * > /dev/null')
+  -- Generate reference.docx file
+  -- What OS am I on?
+  -- https://stackoverflow.com/questions/295052/how-can-i-determine-the-os-of-the-system-from-within-a-lua-script
+  if ossep == '/' then
+    -- *nix (MacOS, Linux) should have zip available
+    print("Zipping reference.docx using UNIX zip.")
+    os.execute ("cd " .. pandoc_data_dir .. "/reference && zip -r ../reference.docx * > /dev/null")
+  elseif ossep == '\\' then
+    -- Windows should have powershell
+    print("Zipping reference.zip using PowerShell.")
+    os.execute("powershell Compress-Archive -Path " .. pandoc_data_dir .. "\\reference\\* " .. pandoc_data_dir .. "\\reference.zip")
+    print("Renaming reference.zip to reference.docx.")
+    os.execute("powershell Rename-Item -Path " .. pandoc_data_dir .. "\\reference.zip -NewName ".. pandoc_data_dir .. "\\reference.docx")
+  else
+    print("Unknown shell: " .. ossep)
+    os.exit(1)
+  end
 end
 
