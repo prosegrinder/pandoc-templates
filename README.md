@@ -16,7 +16,7 @@ See the Pandoc site for [full installation](https://pandoc.org/installing.html) 
 
 ### Markdown
 
-These templates only work for short and long fiction written in Markdown. See [Sustainable Authorship in Plain Text using Pandoc and Markdown](https://programminghistorian.org/lessons/sustainable-authorship-in-plain-text-using-pandoc-and-markdown#philosophy) if you're interested in my motivation. I hope one day soon publishers in the fiction markets will prefer submissions in Markdown over DOCX as it minimized the burden of typsetting on the author and is relatively easy to convert to many other formats (vis a vi.
+These templates only work for short and long fiction written in Markdown. See [Sustainable Authorship in Plain Text using Pandoc and Markdown](https://programminghistorian.org/lessons/sustainable-authorship-in-plain-text-using-pandoc-and-markdown#philosophy) if you're interested in my motivation. I hope one day soon publishers in the fiction markets will prefer submissions in Markdown over DOCX as it minimized the burden of typsetting on the author and is relatively easy to convert to many other formats (e.g. using Pandoc).
 
 ## Installation
 
