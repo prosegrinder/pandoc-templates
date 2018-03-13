@@ -22,11 +22,11 @@ These templates only work for short and long fiction written in Markdown. See [S
 
 Once you have [Pandoc](https://pandoc.org) set up, you'll need to copy these files to your local machine.
 
-### via Download
+### Install via Download
 
 If you're not familiar with ```git```, no big deal. Just download the [latest release](https://github.com/prosegrinder/pandoc-templates/releases/latest) and extract it to any directory you like.
 
-### via Git
+### Install via Git
 
 If you're ```git``` savvy, clone this repository:
 
@@ -69,8 +69,6 @@ For Windows (using PowerShell 5.0 or greater):
 ```powershell
 $PANDOC_TEMPLATES_HOME\bin\shunnshort.ps1 C:\some\cool\story.md C:\some\cool\story.docx
 ```
-
-
 
  That's it!
 
