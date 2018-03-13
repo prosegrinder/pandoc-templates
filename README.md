@@ -72,7 +72,7 @@ $PANDOC_TEMPLATES_HOME\bin\shunnshort.ps1 C:\some\cool\story.md C:\some\cool\sto
 
  That's it!
 
-## Credit
+## Credits
 
 * [Pandoc](https://pandoc.org): Document Conversion Utility
 * [William Shunn](https://www.shunn.net/format/): Formatting Guidelines
