@@ -26,8 +26,8 @@ do
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-if [ ! -f ${INFILE} ]; then
-  echo "${INFILE} not found."
+if [ ! -f "$INFILE" ]; then
+  echo "'$INFILE' not found."
   exit 1
 fi
 
@@ -37,22 +37,22 @@ FNAME="${INFILE##*/}"
 TMPEPUB="${TMPDIR}/${FNAME%.*}.epub"
 
 # Convert to epub first.
-echo "Creating intermediate file: ${TMPEPUB}"
-pandoc -f markdown -t epub --wrap=none -o ${TMPEPUB} ${INFILE}
-echo "Extracting contents of  ${TMPEPUB}"
-unzip -q ${TMPEPUB} -d ${TMPDIR}
+echo "Creating intermediate file: '$TMPEPUB'"
+pandoc -f markdown -t epub --wrap=none -o "$TMPEPUB" "$INFILE"
+echo "Extracting contents of '$TMPEPUB'"
+unzip -q "$TMPEPUB" -d "$TMPDIR"
 
 # TODO: Prompt for confirmation if ${OUTDIR} exists.
 mkdir -p "${OUTDIR}"
 
 # Convert individual chapters to gfm
-for chapter in ${TMPDIR}/EPUB/text/*.xhtml;
+for chapter in "$TMPDIR"/EPUB/text/*.xhtml;
 do
   FILE="${chapter##*/}"
   OUTFILE="${FILE%.*}.md"
   echo "Converting ${chapter} to ${OUTDIR}/${OUTFILE}."
   # https://stackoverflow.com/questions/35807092/why-pandoc-keeps-span-and-div-tags-when-converting-html-to-markdown#35812743
-  pandoc -from=html-native_divs-native_spans -to=gfm --columns=80 -output="${OUTDIR}/${OUTFILE}" "${chapter}"
+  pandoc --from=html-native_divs-native_spans --to=gfm --columns=80 --output="${OUTDIR}/${OUTFILE}" "${chapter}"
   # mv ${chapter/xhtml/md} ${PROJDIR}/manuscript
 done
 
