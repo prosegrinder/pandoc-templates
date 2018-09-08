@@ -39,7 +39,23 @@ if [ ! -f "${INFILE}" ]; then
   echo "'${INFILE}' not found."
   exit 1
 else
-  INFILE=$(realpath ${INFILE})
+  INFILE="$(realpath "${INFILE}")"
+fi
+
+# If no output filename given, set it to INFILE and change .docx to .md
+: "${OUTFILE:=${INFILE%.*}.docx}"
+OUTFILE="$(realpath "$OUTFILE")"
+
+# Prompt for confirmation if ${OUTFILE} exists.
+if [ -f "$OUTFILE" ]; then
+  echo "$OUTFILE exists. "
+  echo "Do you want to overwrite it?"
+  select yn in "Yes" "No"; do
+      case $yn in
+          Yes ) echo "Overwriting."; break;;
+          No ) echo "Cancelling."; exit;;
+      esac
+  done
 fi
 
 # Create a temporary data directory
