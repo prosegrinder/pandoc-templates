@@ -58,7 +58,7 @@ contact_phone: "(212) 555-1212"
 contact_email: "format@shunn.net"
 ```
 
-### `md2short`
+### `md2short.sh`
 
 The script simplifies the process of converting a short story in markdown to a Microsoft Word
 DOCX file in [William Shunn's Short Story Format](https://format.ms/story.html):
@@ -85,7 +85,7 @@ $PANDOC_TEMPLATES_HOME/bin/md2short.sh --output $HOME/somecoolstory.docx --overw
 
 For Windows (using PowerShell 5.0 or greater): **under revision**
 
-### `md2long`
+### `md2long.sh`
 
 The script simplifies the process of converting a novel in markdown to a Microsoft Word
 DOCX file in [William Shunn's Novel Format](https://format.ms/novel.html):
