@@ -5,5 +5,5 @@
 # Ignore all docx files
 *.docx
 
-# Shunn Short Story
+# DOCX Template files
 !**/template.docx
