@@ -1,6 +1,8 @@
 # Pandoc Templates
 
-An opinionated set of Pandoc templates and scripts for converting markdown to DOCX manuscripts that adhere to [William Shunn's Proper Manuscript Format](https://www.shunn.net/format/) guidelines using [Pandoc](https://pandoc.org).
+An opinionated set of Pandoc templates and scripts for converting markdown to DOCX manuscripts
+that adhere to [William Shunn's Proper Manuscript Format](https://www.shunn.net/format/)
+guidelines using [Pandoc](https://pandoc.org).
 
 ## Getting Started
 
@@ -36,11 +38,13 @@ git clone https://github.com/prosegrinder/pandoc-templates.git
 
 ## Usage
 
-Once you have the templates installed locally, you'll need to make sure your source Markdown document has the proper frontmatter.
+Once you have the templates installed locally, you'll need to make sure your source Markdown document
+has the proper frontmatter.
 
 ### Frontmatter
 
-These templates assume the following frontmatter in every markdown file. The following is from the guidelines.md file used to test Shunn's Short Story Format:
+These templates assume the following frontmatter in at least one of the markdown files. The following
+is from the guidelines.md file used to test Shunn's Short Story Format:
 
 ```yaml
 title: "Proper Manuscript Format"
@@ -54,23 +58,60 @@ contact_phone: "(212) 555-1212"
 contact_email: "format@shunn.net"
 ```
 
-### Shunn Short
+### `md2short`
 
-The script takes two arguments, the name of input markdown file, and the name of the resulting DOCX file.
+The script simplifies the process of converting a short story in markdown to a Microsoft Word
+DOCX file in [William Shunn's Short Story Format](https://format.ms/story.html):
 
 For Mac & Linux:
 
 ```bash
-$PANDOC_TEMPLATES_HOME/bin/shunnshort.sh /some/cool/story.md /some/cool/story.docx
+md2short.sh --output DOCX [--overwrite] FILES
+
+  -o DOCX               --output=DOCX
+    Write the output to DOCX. Passed straight to pandoc as-is.
+  -x                    --overwrite
+    If output FILE exists, overwrite without prompting.
+  FILES
+    One (1) or more Markdown file(s) to be converted to DOCX.
+    Passed straight to pandoc as-is.
 ```
 
-For Windows (using PowerShell 5.0 or greater):
+For example:
 
-```powershell
-$PANDOC_TEMPLATES_HOME\bin\shunnshort.ps1 C:\some\cool\story.md C:\some\cool\story.docx
+```bash
+$PANDOC_TEMPLATES_HOME/bin/md2short.sh --output $HOME/somecoolstory.docx --overwrite $HOME/somecoolstory.md
 ```
 
- That's it!
+For Windows (using PowerShell 5.0 or greater): **under revision**
+
+### `md2long`
+
+The script simplifies the process of converting a novel in markdown to a Microsoft Word
+DOCX file in [William Shunn's Novel Format](https://format.ms/novel.html):
+
+For Mac & Linux:
+
+```bash
+md2long.sh --output DOCX [--overwrite] FILES
+
+  -o DOCX               --output=DOCX
+    Write the output to DOCX.
+    Passed straight to pandoc as-is.
+  -x                    --overwrite
+    If output FILE exists, overwrite without prompting.
+  FILES
+    One (1) or more Markdown file(s) to be converted to DOCX.
+    Passed straight to pandoc as-is.
+```
+
+For example:
+
+```bash
+$PANDOC_TEMPLATES_HOME/bin/md2long.sh --output $HOME/somecoolstory.docx --overwrite $HOME/manuscript/ch*.md
+```
+
+For Windows (using PowerShell 5.0 or greater): **under revision**
 
 ## Credits
 
