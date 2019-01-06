@@ -10,16 +10,15 @@ PANDOC_TEMPLATES="$(dirname "$SCRIPT_PATH")"
 SHUNN_SHORT_STORY_DIR="$PANDOC_TEMPLATES/shunn/short"
 
 # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash/
-POSITIONAL=()
+FILES=()
 while [[ $# -gt 0 ]]
 do
   key="$1"
 
   case $key in
-    -i|--input)
-    INFILE="$2"
-    shift # past argument
-    shift # past value
+    -x|--overwrite)
+    OVERWRITE="1"
+    shift
     ;;
     -o|--output)
     OUTFILE="$2"
@@ -27,28 +26,22 @@ do
     shift # past value
     ;;
     *)    # unknown option
-    POSITIONAL+=("$1") # save it in an array for later
+    FILES+=("$1") # save it in an array for later
     shift # past argument
     ;;
   esac
 done
-set -- "${POSITIONAL[@]}" # restore positional parameters
 
-# Does the input file exist?
-if [ ! -f "${INFILE}" ]; then
-  echo "'${INFILE}' not found."
+if [[ -z $OUTFILE ]]; then
+  echo "No --output argument given."
   exit 1
 else
-  INFILE="$(realpath "${INFILE}")"
+  OUTFILE="$(realpath "$OUTFILE")"
 fi
 
-# If no output filename given, set it to INFILE and change .docx to .md
-: "${OUTFILE:=${INFILE%.*}.docx}"
-OUTFILE="$(realpath "$OUTFILE")"
-
 # Prompt for confirmation if ${OUTFILE} exists.
-if [ -f "$OUTFILE" ]; then
-  echo "$OUTFILE exists. "
+if [[ -f "$OUTFILE" && -z "$OVERWRITE" ]]; then
+  echo "$OUTFILE exists."
   echo "Do you want to overwrite it?"
   select yn in "Yes" "No"; do
       case $yn in
@@ -78,7 +71,7 @@ pandoc \
   --lua-filter="$SHUNN_SHORT_STORY_DIR/shunnshort.lua" \
   --data-dir="$PANDOC_DATA_DIR" \
   --output="$OUTFILE" \
-  "$INFILE"
+  "${FILES[@]:0}"
 echo "Pandoc completed successfully."
 
 # Clean up the temporary directory

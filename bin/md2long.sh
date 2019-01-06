@@ -16,6 +16,10 @@ do
   key="$1"
 
   case $key in
+    -x|--overwrite)
+    OVERWRITE="1"
+    shift
+    ;;
     -o|--output) # output file
     OUTFILE="$2"
     shift # past argument
@@ -28,7 +32,7 @@ do
   esac
 done
 
-if [[ -z $OUTFILE ]]; then
+if [[ -z "$OUTFILE" ]]; then
   echo "No --output argument given."
   exit 1
 else
@@ -36,8 +40,8 @@ else
 fi
 
 # Prompt for confirmation if ${OUTFILE} exists.
-if [ -f "$OUTFILE" ]; then
-  echo "$OUTFILE exists. "
+if [[ -f "$OUTFILE" && -z "$OVERWRITE" ]]; then
+  echo "$OUTFILE exists."
   echo "Do you want to overwrite it?"
   select yn in "Yes" "No"; do
       case $yn in
