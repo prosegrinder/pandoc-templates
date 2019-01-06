@@ -39,8 +39,8 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 # Default columns
 : "${COLUMNS:=80}"
 
-# Default markdown flavor
-: "${MDFORMAT:=gfm}"
+# Default markdown
+: "${MDFORMAT:=markdown_strict}"
 
 if ! type pandoc > /dev/null  2>&1; then
   echo "Can't execute pandoc. Is it installed and in your path?"
