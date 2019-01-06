@@ -16,6 +16,21 @@ do
   key="$1"
 
   case $key in
+    -h|--help)
+    echo "
+md2long.sh --output DOCX [--overwrite] FILES
+
+  -o DOCX               --output=DOCX
+    Write the output to DOCX. Passed straight to pandoc as-is.
+  -x                    --overwrite
+    If output FILE exists, overwrite without prompting.
+  FILES
+    One (1) or more Markdown file(s) to be converted to DOCX.
+    Passed straight to pandoc as-is.
+
+"
+    exit 0
+    ;;
     -x|--overwrite)
     OVERWRITE="1"
     shift
