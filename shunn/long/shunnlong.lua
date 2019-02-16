@@ -73,10 +73,21 @@ wordcount = {
   end
 }
 
+function comma_value(amount)
+  local formatted = string.format("%i", amount)
+  while true do
+    formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+    if (k==0) then
+      break
+    end
+  end
+  return formatted
+end
+
 function Pandoc(doc, meta)
   pandoc.walk_block(pandoc.Div(doc.blocks), wordcount)
 
-  vars["#word_count#"] = string.format("%i", round(word_count, -2))
+  vars["#word_count#"] = comma_value(round(word_count, -2))
 
   -- Process header XML files
   processHeaderFile('header1')
