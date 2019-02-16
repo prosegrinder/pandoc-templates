@@ -6,6 +6,9 @@
 # Figure out where everything is
 SCRIPT="$(realpath "$0")"
 SCRIPT_PATH="$(dirname "$SCRIPT")"
+FILTERS_PATH="$(realpath "$SCRIPT_PATH/..")"
+export LUA_PATH
+LUA_PATH="$FILTERS_PATH/?.lua;;"
 PANDOC_TEMPLATES="$(dirname "$SCRIPT_PATH")"
 SHUNN_SHORT_STORY_DIR="$PANDOC_TEMPLATES/shunn/short"
 
