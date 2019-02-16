@@ -1,30 +1,40 @@
 -- http://pandoc.org/lua-filters.html
 -- counts words in a document
 
-words = 0
+word_count = 0
 
 wordcount = {
   Str = function(el)
     -- we don't count a word if it's entirely punctuation:
     if el.text:match("%P") then
-        words = words + 1
+      word_count = word_count + 1
     end
   end,
 
   Code = function(el)
     _,n = el.text:gsub("%S+","")
-    words = words + n
+    word_count = word_count + n
   end,
 
   CodeBlock = function(el)
     _,n = el.text:gsub("%S+","")
-    words = words + n
+    word_count = word_count + n
   end
 }
 
-function Pandoc(el)
-    -- skip metadata, just count body:
-    pandoc.walk_block(pandoc.Div(el.blocks), wordcount)
-    print(words .. " words in body")
-    os.exit(0)
+function format_word_count(amount)
+  local formatted = string.format("%i", amount)
+  while true do
+    formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+    if (k==0) then
+      break
+    end
+  end
+  return formatted
 end
+
+function round(num, numDecimalPlaces)
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
