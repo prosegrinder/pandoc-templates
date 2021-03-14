@@ -1,3 +1,6 @@
+# Ignore editor backup files
+*~
+
 # Ignore uznipped template and reference directories
 **/template/*
 **/reference/*
@@ -6,4 +9,4 @@
 *.docx
 
 # DOCX Template files
-!**/template.docx
+!**/template*.docx
