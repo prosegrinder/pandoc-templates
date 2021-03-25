@@ -21,12 +21,14 @@ do
   case $key in
     -h|--help)
     echo "
-md2short.sh --output DOCX [--overwrite] FILES
+md2short.sh --output DOCX [--overwrite] [--modern] FILES
 
   -o DOCX               --output=DOCX
     Write the output to DOCX. Passed straight to pandoc as-is.
   -x                    --overwrite
     If output FILE exists, overwrite without prompting.
+  -m                    --modern
+    Use Shunn modern manuscript format (otherwise use Shunn classic)
   FILES
     One (1) or more Markdown file(s) to be converted to DOCX.
     Passed straight to pandoc as-is.
@@ -36,6 +38,10 @@ md2short.sh --output DOCX [--overwrite] FILES
     ;;
     -x|--overwrite)
     OVERWRITE="1"
+    shift
+    ;;
+    -m|--modern)
+    MODERN="1"
     shift
     ;;
     -o|--output)
@@ -69,6 +75,12 @@ if [[ -f "$OUTFILE" && -z "$OVERWRITE" ]]; then
   done
 fi
 
+if [[ -n "$MODERN" ]]; then
+    TEMPLATE='template-modern.docx'
+else
+    TEMPLATE='template.docx'
+fi
+
 # Create a temporary data directory
 echo "Creating temporary directory."
 export PANDOC_DATA_DIR
@@ -76,9 +88,9 @@ PANDOC_DATA_DIR="$(mktemp -d)"
 echo "Directory created: $PANDOC_DATA_DIR"
 
 # Prep the template and reference directories
-echo "Extracting $SHUNN_SHORT_STORY_DIR/template.docx to temporary directory."
-unzip -ao "$SHUNN_SHORT_STORY_DIR/template.docx" -d "$PANDOC_DATA_DIR/template" > /dev/null
-unzip -ao "$SHUNN_SHORT_STORY_DIR/template.docx" -d "$PANDOC_DATA_DIR/reference" > /dev/null
+echo "Extracting $SHUNN_SHORT_STORY_DIR/$TEMPLATE to temporary directory."
+unzip -ao "$SHUNN_SHORT_STORY_DIR/$TEMPLATE" -d "$PANDOC_DATA_DIR/template" > /dev/null
+unzip -ao "$SHUNN_SHORT_STORY_DIR/$TEMPLATE" -d "$PANDOC_DATA_DIR/reference" > /dev/null
 echo "Files extracted."
 
 # Run pandoc
