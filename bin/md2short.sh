@@ -75,7 +75,7 @@ if [[ -f "$OUTFILE" && -z "$OVERWRITE" ]]; then
   done
 fi
 
-if [[ ! -z "$MODERN" ]]; then
+if [[ -n "$MODERN" ]]; then
     TEMPLATE='template-modern.docx'
 else
     TEMPLATE='template.docx'
