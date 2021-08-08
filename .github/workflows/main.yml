@@ -1,12 +1,7 @@
 name: CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
+# "workflow_dispatch" Allows you to run this workflow manually from the Actions tab
 
 jobs:
   lint:
