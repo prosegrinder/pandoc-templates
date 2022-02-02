@@ -1,4 +1,6 @@
 param(
+    [Alias('h')]
+    [switch]$help,
     [Alias('o')]
     [string]$output,
     [Alias('x')]
@@ -8,7 +10,22 @@ param(
 )
 
 # Perhaps: https://www.powershellgallery.com/packages/Pscx/3.3.2
+if ($help) {
+@"
+md2short.ps1 -output DOCX [-overwrite] [-modern] FILES
 
+  -o DOCX               -output DOCX
+    Write the output to DOCX. Passed straight to pandoc as-is.
+  -x                    -overwrite
+    If output FILE exists, overwrite without prompting.
+  -m                    -modern
+    Use Shunn modern manuscript format (otherwise use Shunn classic)
+  FILES
+    One (1) or more Markdown file(s) to be converted to DOCX.
+    Passed straight to pandoc as-is.
+"@
+Exit
+}
 if (-not $output) { 
     Write-Host "No -output argument defined."
     Exit

@@ -66,12 +66,14 @@ DOCX file in [William Shunn's Short Story Format](https://format.ms/story.html):
 For Mac & Linux:
 
 ```bash
-md2short.sh --output DOCX [--overwrite] FILES
+md2short.sh --output DOCX [--overwrite] [--modern] FILES
 
   -o DOCX               --output=DOCX
     Write the output to DOCX. Passed straight to pandoc as-is.
   -x                    --overwrite
     If output FILE exists, overwrite without prompting.
+  -m                    --modern
+    Use Shunn modern manuscript format (otherwise use Shunn classic)
   FILES
     One (1) or more Markdown file(s) to be converted to DOCX.
     Passed straight to pandoc as-is.
@@ -84,6 +86,10 @@ $PANDOC_TEMPLATES_HOME/bin/md2short.sh --output $HOME/somecoolstory.docx --overw
 ```
 
 For Windows (using PowerShell 5.0 or greater): **under revision**
+
+```powershell
+.\md2short.ps1 -overwrite -modern -output '../short-out-ps.docx' './short/guidelines.md'
+```
 
 ### `md2long.sh`
 
