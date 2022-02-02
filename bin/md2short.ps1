@@ -24,18 +24,18 @@ md2short.ps1 -output DOCX [-overwrite] [-modern] FILES
     One (1) or more Markdown file(s) to be converted to DOCX.
     Passed straight to pandoc as-is.
 "@
-Exit
+Exit 0
 }
 if (-not $output) { 
     Write-Host "No -output argument defined."
-    Exit
+    Exit 1
 }
 if ((Test-Path -Path $output) -and (-not($overwrite))) {
     Write-Host "$output exists."
     $overx = Read-Host -Prompt "Do you want to overwrite? (y/n)"
     if (-not($overx -match 'y')) {
         Write-Host 'Cancelling.'
-        Exit
+        Exit 0
     } else {
         Write-Host 'Overwriting.'
     }
@@ -72,7 +72,7 @@ function ZipFiles( $zipfilename, $sourcedir )
 }
 
 # Figure out where everything is
-$ShunnShortStoryDir=Join-Path $PSScriptRoot "..\shunn\short"
+$ShunnShortStoryDir=Join-Path $PSScriptRoot "..\shunn\short" | Resolve-Path
 Get-ChildItem $ShunnShortStoryDir
 
 # Create a temporary data directory
