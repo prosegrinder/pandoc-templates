@@ -1,6 +1,34 @@
-param([string]$infile, [string]$outfile)
+param(
+    [Alias('o')]
+    [string]$output,
+    [Alias('x')]
+    [switch]$overwrite,
+    [Alias('m')]
+    [switch]$modern
+)
 
 # Perhaps: https://www.powershellgallery.com/packages/Pscx/3.3.2
+
+if (-not $output) { 
+    Write-Host "No -output argument defined."
+    Exit
+}
+if ((Test-Path -Path $output) -and (-not($overwrite))) {
+    Write-Host "$output exists."
+    $overx = Read-Host -Prompt "Do you want to overwrite? (y/n)"
+    if (-not($overx -match 'y')) {
+        Write-Host 'Cancelling.'
+        Exit
+    } else {
+        Write-Host 'Overwriting.'
+    }
+}
+if ($modern){
+    $TEMPLATE='template-modern.docx'
+} else {
+    $TEMPLATE='template.docx'
+}
+
 
 # https://stackoverflow.com/questions/34559553/create-a-temporary-directory-in-powershell
 function New-TemporaryDirectory {
@@ -31,17 +59,27 @@ $ShunnShortStoryDir=Join-Path $PSScriptRoot "..\shunn\short"
 Get-ChildItem $ShunnShortStoryDir
 
 # Create a temporary data directory
+Write-Host 'Creating temporary directory.'
 $env:PANDOC_DATA_DIR=New-TemporaryDirectory
+Write-Host "Directory created: $env:PANDOC_DATA_DIR"
 
 # Prep the template and reference directories
-Copy-Item -Path $ShunnShortStoryDir\template.docx -Destination $env:PANDOC_DATA_DIR\template.zip
+Copy-Item -Path $ShunnShortStoryDir\$TEMPLATE -Destination $env:PANDOC_DATA_DIR\template.zip
 Expand-Archive -Path $env:PANDOC_DATA_DIR\template.zip -DestinationPath $env:PANDOC_DATA_DIR\template\
 Expand-Archive -Path $env:PANDOC_DATA_DIR\template.zip -DestinationPath $env:PANDOC_DATA_DIR\reference\
 
+# Set Lua filter path
+$FILTERS_PATH=Join-Path $PSScriptRoot '..' | Resolve-Path
+$env:LUA_PATH="$FILTERS_PATH/?.lua;;"
+
 # Run pandoc
 Write-Output "Running Pandoc."
-pandoc $infile --from markdown --to docx --lua-filter $ShunnShortStoryDir/shunnshort.lua --data-dir $env:PANDOC_DATA_DIR --output $outfile
+pandoc --from markdown --to docx `
+    --lua-filter $ShunnShortStoryDir/shunnshort.lua `
+    --data-dir $env:PANDOC_DATA_DIR `
+    --output $output `
+    @args
 Write-Output "Pandoc completed successfully."
 
 # Clean up the temporary directory
-Remove-Item $env:PANDOC_DATA_DIR
+Remove-Item -Recurse -Force $env:PANDOC_DATA_DIR
