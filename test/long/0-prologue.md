@@ -11,7 +11,7 @@ contact_email: "format@shunn.net"
 ---
 
 # Prologue
-# A Silver Tide 
+## A Silver Tide 
 
 Carl McFarland stood beneath a motionless white canopy at his father’s funeral, one arm around his wife’s waist. The western Nevada desert was hot and dry as a kiln--over forty Celsius just past noon, and him in a black wool suit. He put his free hand in his pocket. Beneath his wadded-up computer he found the small, cold syringe that could end this whole charade. Dead clay fired in the sun, this tool could restore to life. 
 

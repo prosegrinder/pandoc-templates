@@ -1,7 +1,6 @@
 # Part I
-
 # Chapter 1
-# A Snowy Dove
+## A Snowy Dove
 
 Jenna Kemp, mayor of Sun Forge, folded her thinkrag in half and pushed it away. She sat back in her chair, staring down the length of the conference table. It was morning and she was alone in the council chamber, which was probably a blessing. Had anyone else been present, she couldn’t have hidden her uneasiness, and uneasiness made her surly and fractious. 
 

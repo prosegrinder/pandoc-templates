@@ -1,5 +1,5 @@
 # Chapter 3
-# Trying another title
+## Trying another title
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nam libero justo laoreet sit amet cursus. Etiam erat velit scelerisque in dictum non consectetur a. Duis tristique sollicitudin nibh sit amet commodo nulla. Aliquam malesuada bibendum arcu vitae elementum. Vitae tortor condimentum lacinia quis vel eros. Pellentesque dignissim enim sit amet. A diam maecenas sed enim. Gravida dictum fusce ut placerat orci. Mattis rhoncus urna neque viverra justo nec. Ut aliquam purus sit amet luctus. Consequat id porta nibh venenatis cras sed felis. Ac felis donec et odio pellentesque diam volutpat commodo sed. Sem nulla pharetra diam sit. Etiam erat velit scelerisque in dictum.
 
