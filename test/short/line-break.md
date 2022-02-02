@@ -27,7 +27,7 @@ What happens if you want to indicate where an actual line should go for a hard b
 
 In Markdown, the convention for a horizontal rule is given by asterisks (***), dashes(---), or underscores (___) according to [Markdown Guide](https://www.markdownguide.org/basic-syntax#horizontal-rules).
 
-Many short story authors also use triple hashes (###) to indicate a line break.
+Many short story authors also use triple hashes (###) to indicate a line break, [as recommended by Shunn](https://www.shunn.net/format/2012/08/differentiating_major_and_mino.html).
 
 Testing triple hyphens.
 

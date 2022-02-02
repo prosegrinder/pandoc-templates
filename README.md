@@ -58,6 +58,14 @@ contact_phone: "(212) 555-1212"
 contact_email: "format@shunn.net"
 ```
 
+Optional properties for the frontpage:
+
+```yaml
+subtitle: Optional field
+abstract: |-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nam libero justo laoreet sit amet cursus. Etiam erat velit scelerisque in dictum non consectetur a. Duis tristique sollicitudin nibh sit amet commodo nulla.
+```
+
 ### `md2short.sh`
 
 The script simplifies the process of converting a short story in markdown to a Microsoft Word
@@ -88,7 +96,7 @@ $PANDOC_TEMPLATES_HOME/bin/md2short.sh --output $HOME/somecoolstory.docx --overw
 For Windows (using PowerShell 5.0 or greater): **under revision**
 
 ```powershell
-.\md2short.ps1 -overwrite -modern -output '../short-out-ps.docx' './short/guidelines.md'
+.\bin\md2short.ps1 -overwrite -modern -output $env:USERPROFILE/Documents/short-out-ps.docx './test/short/guidelines.md'
 ```
 
 ### `md2long.sh`
