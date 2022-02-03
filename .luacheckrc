@@ -1,18 +1,27 @@
 std = {
   globals = {
-    "vars",
+    "_",
+    "format_word_count",
+    "HorizontalRule",
+    "k",
+    "Meta",
+    "n",
     "Pandoc",
     "processHeaderFile",
+    "round",
+    "vars",
+    "word_count",
+    "wordcount",
   },
   read_globals = {
-    "format_word_count",
+    "io",
+    "math",
     "os",
     "package",
+    "pairs",
     "pandoc",
     "print",
     "require",
-    "round",
-    "wordcount",
-    "word_count",
+    "string",
   }
 }
