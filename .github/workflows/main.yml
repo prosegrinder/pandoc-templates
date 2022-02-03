@@ -6,7 +6,7 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   lint-luacheck:
     runs-on: ubuntu-latest
-    name: Luacheck linting
+    name: Luacheck
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -17,6 +17,7 @@ jobs:
 
   lint-shellcheck:
     runs-on: ubuntu-latest
+    name: ShellCheck
     steps:
       - uses: actions/checkout@v2
       - name: ShellCheck
@@ -26,7 +27,7 @@ jobs:
           scandir: ./bin # optional, default is .
 
   lint-with-PSScriptAnalyzer:
-    name: Install and run PSScriptAnalyzer
+    name: PSScriptAnalyzer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
