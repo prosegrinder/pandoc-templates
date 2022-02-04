@@ -96,7 +96,11 @@ pandoc --from markdown --to docx `
     --data-dir $env:PANDOC_DATA_DIR `
     --output $output `
     @args
-Write-Output "Pandoc completed successfully."
+if ($LastExitCode) {
+    Write-Output "ERROR: exit $LastExitCode"
+} else {
+    Write-Output "Pandoc completed successfully."
+}
 
 # Clean up the temporary directory
 Remove-Item -Recurse -Force $env:PANDOC_DATA_DIR

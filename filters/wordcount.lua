@@ -23,7 +23,11 @@ wordcount = {
 }
 
 function format_word_count(amount)
+<<<<<<< HEAD
   local formatted = string.format("%i", math.floor(amount))
+=======
+  local formatted = string.format("%i", math.tointeger(amount))
+>>>>>>> www
   while true do
     formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
     if (k==0) then
