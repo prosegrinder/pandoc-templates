@@ -68,15 +68,8 @@ Expand-Archive -Path $env:PANDOC_DATA_DIR\template.zip -DestinationPath $env:PAN
 $FILTERS_PATH=Join-Path $PSScriptRoot '..' | Resolve-Path
 $env:LUA_PATH="$FILTERS_PATH/?.lua;;"
 
-<<<<<<< HEAD
-Write-Output "Resolving input files..."
-[array]$inputs = foreach ($path in $args) {
-  (Resolve-Path -Path $path).Path
-}
-=======
 # Resolve globs
 [array]$inputs = foreach ($path in $args) { (Resolve-Path -Path $path).Path }
->>>>>>> www
 
 # Run pandoc
 Write-Output "Running Pandoc."
@@ -85,15 +78,11 @@ pandoc --from markdown --to docx `
     --data-dir $env:PANDOC_DATA_DIR `
     --output $output `
     @inputs
-<<<<<<< HEAD
-Write-Output "Pandoc completed successfully."
-=======
 if ($LastExitCode) {
     Write-Output "ERROR: exit $LastExitCode"
 } else {
     Write-Output "Pandoc completed successfully."
 }
->>>>>>> www
 
 # Clean up the temporary directory
 Remove-Item -Recurse -Force $env:PANDOC_DATA_DIR
