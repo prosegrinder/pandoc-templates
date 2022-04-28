@@ -23,7 +23,7 @@ wordcount = {
 }
 
 function format_word_count(amount)
-  local formatted = string.format("%i", math.floor(amount))
+  local formatted = string.format("%i", math.ceil(amount))
   while true do
     formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
     if (k==0) then
