@@ -43,6 +43,7 @@ md2long.sh --output DOCX [--overwrite] [--modern] FILES
     -m|--modern)
     MODERN="1"
     shift
+    ;;
     -o|--output) # output file
     OUTFILE="$2"
     shift # past argument
