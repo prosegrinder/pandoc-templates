@@ -23,17 +23,3 @@ $BIN/md2long.sh -x $THIS_DIR/long/*.md $THIS_DIR/short/*.md -o $RESULTS/long.doc
 
 printf $fS '4. [Long] Modern style' $line
 $BIN/md2long.sh -x --modern $THIS_DIR/long/0-prologue.md $THIS_DIR/long/1-the-beginning.md -o $RESULTS/long-modern.docx
-
-printf $fH '=============== Powershell Tests ==============='
-
-printf $fS '1. [Short] Single input' $line
-pwsh $BIN/md2short.ps1 -overwrite $THIS_DIR/short/guidelines.md -output $RESULTS/short-ps.docx
-
-printf $fS '2. [Short] Modern style' $line
-pwsh $BIN/md2short.ps1 -x -modern $THIS_DIR/short/line-break.md -o $RESULTS/short-modern-ps.docx
-
-printf $fS '3. [Long] Wildcard inputs' $line
-pwsh $BIN/md2long.ps1 -x "$THIS_DIR/long/*.md" "$THIS_DIR/short/*.md" -o $RESULTS/long-ps.docx
-
-printf $fS '4. [Long] Modern style' $line
-pwsh $BIN/md2long.ps1 -x -modern $THIS_DIR/long/0-prologue.md $THIS_DIR/long/1-the-beginning.md -o $RESULTS/long-modern-ps.docx
