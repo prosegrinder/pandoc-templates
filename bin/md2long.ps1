@@ -4,9 +4,9 @@ param(
     [Alias('o')]
     [string]$output,
     [Alias('x')]
-    [switch]$overwrite
-    # [Alias('m')]
-    # [switch]$modern
+    [switch]$overwrite,
+    [Alias('m')]
+    [switch]$modern
 )
 
 if ($help) {
@@ -39,12 +39,13 @@ if ((Test-Path -Path $output) -and (-not($overwrite))) {
       Write-Host 'Overwriting.'
   }
 }
-# if ($modern){
-#   $TEMPLATE='template-modern.docx'
-# } else {
 
-# }
-$TEMPLATE='template.docx'
+if ($modern){
+  $TEMPLATE='template-modern.docx'
+} else {
+  $TEMPLATE='template.docx'
+}
+
 $SHUNN_LONG_STORY_DIR=Join-Path $PSScriptRoot "..\shunn\long" | Resolve-Path
 
 # https://stackoverflow.com/questions/34559553/create-a-temporary-directory-in-powershell
