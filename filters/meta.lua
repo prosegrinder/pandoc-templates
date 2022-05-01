@@ -2,7 +2,7 @@
 
 function Meta(meta)
   for k, v in pairs(meta) do
-    if v.t == "MetaInlines" then
+    if pandoc.utils.type(v) == "Inlines" then
       vars["#" .. k .. "#"] = pandoc.utils.stringify(v)
     end
   end

@@ -58,6 +58,14 @@ contact_phone: "(212) 555-1212"
 contact_email: "format@shunn.net"
 ```
 
+Optional properties for the frontpage:
+
+```yaml
+subtitle: Optional field
+abstract: |-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nam libero justo laoreet sit amet cursus. Etiam erat velit scelerisque in dictum non consectetur a. Duis tristique sollicitudin nibh sit amet commodo nulla.
+```
+
 ### `md2short.sh`
 
 The script simplifies the process of converting a short story in markdown to a Microsoft Word
@@ -66,12 +74,14 @@ DOCX file in [William Shunn's Short Story Format](https://format.ms/story.html):
 For Mac & Linux:
 
 ```bash
-md2short.sh --output DOCX [--overwrite] FILES
+md2short.sh --output DOCX [--overwrite] [--modern] FILES
 
   -o DOCX               --output=DOCX
     Write the output to DOCX. Passed straight to pandoc as-is.
   -x                    --overwrite
     If output FILE exists, overwrite without prompting.
+  -m                    --modern
+    Use Shunn modern manuscript format (otherwise use Shunn classic)
   FILES
     One (1) or more Markdown file(s) to be converted to DOCX.
     Passed straight to pandoc as-is.
@@ -84,6 +94,10 @@ $PANDOC_TEMPLATES_HOME/bin/md2short.sh --output $HOME/somecoolstory.docx --overw
 ```
 
 For Windows (using PowerShell 5.0 or greater): **under revision**
+
+```powershell
+.\bin\md2short.ps1 -overwrite -modern -output $env:USERPROFILE/Documents/short-out-ps.docx './test/short/guidelines.md'
+```
 
 ### `md2long.sh`
 
