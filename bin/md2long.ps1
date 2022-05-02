@@ -25,18 +25,18 @@ md2long.ps1 -output DOCX [-overwrite] [-modern] FILES
 "@
 Exit 0
 }
-if (-not $output) { 
-  Write-Host "No -output argument defined."
+if (-not $output) {
+  Write-Output "No -output argument defined."
   Exit 1
 }
 if ((Test-Path -Path $output) -and (-not($overwrite))) {
-  Write-Host "$output exists."
+  Write-Output "$output exists."
   $overx = Read-Host -Prompt "Do you want to overwrite? (y/n)"
   if (-not($overx -match 'y')) {
-      Write-Host 'Cancelling.'
+      Write-Output 'Cancelling.'
       Exit 0
   } else {
-      Write-Host 'Overwriting.'
+      Write-Output 'Overwriting.'
   }
 }
 
@@ -56,9 +56,9 @@ function New-TemporaryDirectory {
 }
 
 # Create a temporary data directory
-Write-Host 'Creating temporary directory.'
+Write-Output 'Creating temporary directory.'
 $env:PANDOC_DATA_DIR=New-TemporaryDirectory
-Write-Host "Directory created: $env:PANDOC_DATA_DIR"
+Write-Output "Directory created: $env:PANDOC_DATA_DIR"
 
 # Prep the template and reference directories
 Copy-Item -Path $SHUNN_LONG_STORY_DIR\$TEMPLATE -Destination $env:PANDOC_DATA_DIR\template.zip
