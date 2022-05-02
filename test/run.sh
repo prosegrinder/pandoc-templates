@@ -13,19 +13,13 @@ line='----------------------------------------'
 printf $fH '================== Bash Tests =================='
 
 printf $fS '1. [Short] Single input' $line
-$BIN/md2short.sh -x -o $RESULTS/short.docx $THIS_DIR/short/guidelines.md
+$BIN/md2short.sh --overwrite $THIS_DIR/short/guidelines.md --output $RESULTS/short.docx
 
-printf $fS '2. [Long] Wildcard' $line
-$BIN/md2long.sh -x -o $RESULTS/long.docx $THIS_DIR/long/*.md
-   
-printf $fH '=============== Powershell Tests ==============='
+printf $fS '1. [Short] Modern style' $line
+$BIN/md2short.sh -x --modern $THIS_DIR/short/line-break.md -o $RESULTS/short-modern.docx
 
-printf $fS '1. [Short] Single input' $line
-pwsh $BIN/md2short.ps1 -x -m -o $RESULTS/short-out-ps.docx $THIS_DIR/short/guidelines.md
+printf $fS '3. [Long] Wildcard inputs' $line
+$BIN/md2long.sh -x $THIS_DIR/long/*.md $THIS_DIR/short/*.md -o $RESULTS/long.docx
 
-printf $fS '2. [Short] Various line break conventions' $line
-pwsh $BIN/md2short.ps1 -overwrite -modern -output $RESULTS/short-line-break-ps.docx $THIS_DIR/short/line-break.md
-
-printf $fS '3. [Long] Multiple wildcard inputs' $line
-# Wildcards must be quoted because Windows shell doesn't expand globs automatically
-pwsh $BIN/md2long.ps1 -x -o $RESULTS/long-multi-ps.docx "$THIS_DIR/long/*.md" "$THIS_DIR/short/*.md"
+printf $fS '4. [Long] Modern style' $line
+$BIN/md2long.sh -x --modern $THIS_DIR/long/0-prologue.md $THIS_DIR/long/1-the-beginning.md -o $RESULTS/long-modern.docx
