@@ -24,13 +24,23 @@ function Pandoc(doc, meta)
   if ossep == '/' then
     -- *nix (MacOS, Linux) should have zip available
     print("Zipping reference.docx using UNIX zip.")
-    os.execute ("cd " .. pandoc_data_dir .. "/reference && zip -r ../reference.docx * > /dev/null")
+    os.execute ("cd "
+      .. pandoc_data_dir
+      .. "/reference && zip -r ../reference.docx * > /dev/null")
   elseif ossep == '\\' then
     -- Windows should have powershell
     print("Zipping reference.zip using PowerShell.")
-    os.execute("powershell Compress-Archive -Path " .. pandoc_data_dir .. "\\reference\\* " .. pandoc_data_dir .. "\\reference.zip")
+    os.execute("powershell Compress-Archive -Path "
+      .. pandoc_data_dir
+      .. "\\reference\\* "
+      .. pandoc_data_dir
+      .. "\\reference.zip")
     print("Renaming reference.zip to reference.docx.")
-    os.execute("powershell Rename-Item -Path " .. pandoc_data_dir .. "\\reference.zip -NewName ".. pandoc_data_dir .. "\\reference.docx")
+    os.execute("powershell Rename-Item -Path "
+      .. pandoc_data_dir
+      .. "\\reference.zip -NewName "
+      .. pandoc_data_dir
+      .. "\\reference.docx")
   else
     print("Unknown shell: " .. ossep)
     os.exit(1)
