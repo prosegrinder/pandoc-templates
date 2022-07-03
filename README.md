@@ -127,6 +127,16 @@ $PANDOC_TEMPLATES_HOME/bin/md2long.sh --output $HOME/somecoolstory.docx --overwr
 
 For Windows (using PowerShell 5.0 or greater): **under revision**
 
+### Paragraph Breaks
+
+Use an empty paragraph to create a space between two scenes. An empty paragraph can be created by escaping a space character:
+
+```
+
+\ 
+
+```
+
 ## Credits
 
 * [Pandoc](https://pandoc.org): Document Conversion Utility
