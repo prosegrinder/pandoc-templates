@@ -3,6 +3,7 @@ require "filters.wordcount"
 require "filters.meta"
 require "filters.docx.horizontalrule"
 require "filters.docx.processheader"
+require "filters.nonbreakemdash"
 
 vars = {}
 
