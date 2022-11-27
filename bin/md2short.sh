@@ -11,6 +11,7 @@ export LUA_PATH
 LUA_PATH="$FILTERS_PATH/?.lua;;"
 PANDOC_TEMPLATES="$(dirname "$SCRIPT_PATH")"
 SHUNN_SHORT_STORY_DIR="$PANDOC_TEMPLATES/shunn/short"
+FROM_FORMAT='markdown'
 
 # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash/
 FILES=()
@@ -29,6 +30,8 @@ md2short.sh --output DOCX [--overwrite] [--modern] FILES
     If output FILE exists, overwrite without prompting.
   -m                    --modern
     Use Shunn modern manuscript format (otherwise use Shunn classic)
+  -f                    --from=FORMAT
+    Input document format, passed to pandoc. Defaults to 'markdown'.
   FILES
     One (1) or more Markdown file(s) to be converted to DOCX.
     Passed straight to pandoc as-is.
@@ -46,6 +49,11 @@ md2short.sh --output DOCX [--overwrite] [--modern] FILES
     ;;
     -o|--output)
     OUTFILE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -f|--from)
+    FROM_FORMAT="$2"
     shift # past argument
     shift # past value
     ;;
@@ -96,7 +104,7 @@ echo "Files extracted."
 # Run pandoc
 echo "Running Pandoc."
 pandoc \
-  --from=markdown \
+  "--from=$FROM_FORMAT" \
   --to=docx \
   --lua-filter="$SHUNN_SHORT_STORY_DIR/shunnshort.lua" \
   --data-dir="$PANDOC_DATA_DIR" \
