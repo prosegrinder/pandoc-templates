@@ -3,6 +3,8 @@
 # Convert a Markdown file to .docx
 # Rule 1: Use Pandoc only where necessary
 
+set -e
+
 # Figure out where everything is
 SCRIPT="$(realpath "$0")"
 SCRIPT_PATH="$(dirname "$SCRIPT")"
