@@ -14,6 +14,7 @@ LUA_PATH="$FILTERS_PATH/?.lua;;"
 PANDOC_TEMPLATES="$(dirname "$SCRIPT_PATH")"
 SHUNN_SHORT_STORY_DIR="$PANDOC_TEMPLATES/shunn/short"
 FROM_FORMAT='markdown'
+VERBOSE='0'
 
 # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash/
 FILES=()
@@ -34,6 +35,8 @@ md2short.sh --output DOCX [--overwrite] [--modern] FILES
     Use Shunn modern manuscript format (otherwise use Shunn classic)
   -f                    --from=FORMAT
     Input document format, passed to pandoc. Defaults to 'markdown'.
+  -v                    --verbose
+    Print progress messages.
   FILES
     One (1) or more Markdown file(s) to be converted to DOCX.
     Passed straight to pandoc as-is.
@@ -59,12 +62,22 @@ md2short.sh --output DOCX [--overwrite] [--modern] FILES
     shift # past argument
     shift # past value
     ;;
+    -v|--verbose)
+    VERBOSE="1"
+    shift
+    ;;
     *)    # unknown option
     FILES+=("$1") # save it in an array for later
     shift # past argument
     ;;
   esac
 done
+
+function echo_if_verbose() {
+    if [[ "$VERBOSE" == '1' ]]; then
+        echo "${@}"
+    fi
+}
 
 if [[ -z $OUTFILE ]]; then
   echo "No --output argument given."
@@ -92,29 +105,30 @@ else
 fi
 
 # Create a temporary data directory
-echo "Creating temporary directory."
+echo_if_verbose "Creating temporary directory."
 export PANDOC_DATA_DIR
 PANDOC_DATA_DIR="$(mktemp -d)"
-echo "Directory created: $PANDOC_DATA_DIR"
+echo_if_verbose "Directory created: $PANDOC_DATA_DIR"
 
 # Prep the template and reference directories
-echo "Extracting $SHUNN_SHORT_STORY_DIR/$TEMPLATE to temporary directory."
+echo_if_verbose "Extracting $SHUNN_SHORT_STORY_DIR/$TEMPLATE to temporary directory."
 unzip -ao "$SHUNN_SHORT_STORY_DIR/$TEMPLATE" -d "$PANDOC_DATA_DIR/template" > /dev/null
 unzip -ao "$SHUNN_SHORT_STORY_DIR/$TEMPLATE" -d "$PANDOC_DATA_DIR/reference" > /dev/null
-echo "Files extracted."
+echo_if_verbose "Files extracted."
 
 # Run pandoc
-echo "Running Pandoc."
+echo_if_verbose "Running Pandoc."
 pandoc \
   "--from=$FROM_FORMAT" \
   --to=docx \
+  "--metadata=shunn_verbose:$VERBOSE" \
   --lua-filter="$SHUNN_SHORT_STORY_DIR/shunnshort.lua" \
   --data-dir="$PANDOC_DATA_DIR" \
   --output="$OUTFILE" \
   "${FILES[@]:0}"
-echo "Pandoc completed successfully."
+echo_if_verbose "Pandoc completed successfully."
 
 # Clean up the temporary directory
-echo "Removing $PANDOC_DATA_DIR"
+echo_if_verbose "Removing $PANDOC_DATA_DIR"
 rm -rf "$PANDOC_DATA_DIR"
-echo "Done."
+echo_if_verbose "Done."
